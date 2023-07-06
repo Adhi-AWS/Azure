@@ -1,3 +1,4 @@
+Set-ExecutionPolicy Bypass -Scope Process -Force;
 if (-not (Get-WmiObject -Query "Select * from Win32_Product where (Name like 'Microsoft Visual Studio Code')")) {
     $url = "https://update.code.visualstudio.com/latest/win32-x64/stable"
     $output = "$env:TEMP\vscode-setup.exe"
@@ -7,3 +8,4 @@ if (-not (Get-WmiObject -Query "Select * from Win32_Product where (Name like 'Mi
 } else {
     Write-Host "Visual Studio Code is already installed."
 }
+
