@@ -10,7 +10,7 @@ $outfile = "$env:TEMP\VSCodeSetup.exe"
 Invoke-WebRequest -Uri $url -OutFile $outfile
 
 # Install Visual Studio Code
-Start-Process -FilePath $outfile -Wait -ArgumentList '/silent', '/mergetasks=!runcode'
+Start-Process -FilePath $outfile -Wait -ArgumentList '/silent'
 
 # Wait for a bit to ensure the installer has finished
 Start-Sleep -Seconds 60
