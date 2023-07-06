@@ -19,4 +19,4 @@ Start-Sleep -Seconds 60
 Remove-Item -Path $outfile -ErrorAction SilentlyContinue
 
 # Open Visual Studio Code
-Start-Process -FilePath 'C:\Users\$env:username\AppData\Local\Programs\Microsoft VS Code\Code.exe'
+Start-Process -FilePath 'C:\Program Files\VSCode\Code.exe'
