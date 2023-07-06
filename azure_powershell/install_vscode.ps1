@@ -1,37 +1,22 @@
-$downloadUrl = "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user"
-$installDir = "C:\Program Files\VSCode"
-$arguments = "/VERYSILENT /MERGETASKS=!runcode"
+# Download and install Visual Studio Code
 
-$installerPath = "$env:TEMP\VSCodeSetup.exe"
-Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+# Set the URL to the latest Visual Studio Code installer
+$url = "https://aka.ms/win32-x64-user-stable"
 
-$installCommand = "$arguments" + ' /DIR="' + $installDir + '"'
-Start-Process -FilePath $installerPath -ArgumentList $installCommand -Wait
+# Set the path where the installer will be saved
+$outfile = "$env:TEMP\VSCodeSetup.exe"
 
-Write-Host "Visual Studio Code has been installed."
+# Download the installer
+Invoke-WebRequest -Uri $url -OutFile $outfile
 
+# Install Visual Studio Code
+Start-Process -FilePath $outfile -Wait -ArgumentList '/silent', '/mergetasks=!runcode'
 
+# Wait for a bit to ensure the installer has finished
+Start-Sleep -Seconds 60
 
+# Remove the installer
+Remove-Item -Path $outfile -ErrorAction SilentlyContinue
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Open Visual Studio Code
+Start-Process -FilePath 'C:\Users\$env:username\AppData\Local\Programs\Microsoft VS Code\Code.exe'
