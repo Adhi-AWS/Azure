@@ -1,22 +1,10 @@
-# Download and install Visual Studio Code
-
-# Set the URL to the latest Visual Studio Code installer
-$url = "https://aka.ms/win32-x64-user-stable"
-
-# Set the path where the installer will be saved
-$outfile = "$env:TEMP\VSCodeSetup.exe"
-
-# Download the installer
-Invoke-WebRequest -Uri $url -OutFile $outfile
-
-# Install Visual Studio Code
-Start-Process -FilePath $outfile -Wait -ArgumentList '/silent'
-
-# Wait for a bit to ensure the installer has finished
-Start-Sleep -Seconds 60
-
-# Remove the installer
-Remove-Item -Path $outfile -ErrorAction SilentlyContinue
-
-# Open Visual Studio Code
-Start-Process -FilePath 'C:\Program Files\VSCode\Code.exe'
+Set-ExecutionPolicy Bypass -Scope Process -Force;
+if (-not (Get-WmiObject -Query "Select * from Win32_Product where (Name like 'Microsoft Visual Studio Code')")) {
+    $url = "https://update.code.visualstudio.com/latest/win32-x64/stable"
+    $output = "$env:TEMP\vscode-setup.exe"
+    Invoke-WebRequest -Uri $url -OutFile $output
+    Start-Process -FilePath $output -Args "/silent /mergetasks=!runcode" -Verb RunAs -Wait
+    Remove-Item -Path $output -Force -ErrorAction SilentlyContinue
+} else {
+    Write-Host "Visual Studio Code is already installed."
+}
